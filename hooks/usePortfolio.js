@@ -14,10 +14,13 @@ export const usePortfolio = () => {
 
 export const PortfolioProvider = ({ children }) => {
   const [activeSection, setActiveSection] = useState("home");
-  const [activeColor, setActiveColor] = useState("color-1");
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isStyleSwitcherOpen, setIsStyleSwitcherOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  
+  // Initialize with default values (no localStorage on first render)
+  const [activeColor, setActiveColor] = useState("color-1");
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Color themes matching your original portfolio
   const colorThemes = {
@@ -27,6 +30,37 @@ export const PortfolioProvider = ({ children }) => {
     "color-4": "#1854b5", // Blue
     "color-5": "#f021b2", // Pink
   };
+  
+  // Load preferences from localStorage after component mounts (client-side only)
+  useEffect(() => {
+    setIsClient(true);
+    
+    // Load saved preferences
+    const savedDarkMode = localStorage.getItem("portfolio-dark-mode");
+    const savedColor = localStorage.getItem("portfolio-theme-color");
+    
+    if (savedDarkMode !== null) {
+      setIsDarkMode(savedDarkMode === "true");
+    }
+    
+    if (savedColor) {
+      setActiveColor(savedColor);
+    }
+  }, []);
+  
+  // Save dark mode preference to localStorage
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem("portfolio-dark-mode", isDarkMode.toString());
+    }
+  }, [isDarkMode, isClient]);
+  
+  // Save color preference to localStorage
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem("portfolio-theme-color", activeColor);
+    }
+  }, [activeColor, isClient]);
 
   // Apply theme to CSS variables
   useEffect(() => {

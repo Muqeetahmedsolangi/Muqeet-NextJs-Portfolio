@@ -607,7 +607,7 @@
   border-radius: 8px;
   height: 100%;
   width: 100%;
-  max-width: 100%;
+  max-width: 450px;
   display: block;
   object-fit: cover;
   position: relative;
@@ -1503,7 +1503,7 @@
   }
   
   .portfolio-container .home .home-img img {
-    height: 400px;
+    height: 100%;
     max-width: 400px;
   }
 }
