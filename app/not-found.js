@@ -1,27 +1,30 @@
-import React from "react";
-import Link from "next/link";
+"use client";
 
-const PageNotFound = () => {
+import React from "react";
+import { useRouter } from "next/navigation";
+
+export default function NotFound() {
+  const router = useRouter();
+
+  const handleGoHome = () => {
+    router.push("/");
+  };
+
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center text-center py-20 dark:bg-slate-900">
-      <img src="/assets/images/all-img/404-2.svg" alt="" />
-      <div className="max-w-[546px] mx-auto w-full mt-12">
-        <h4 className="text-slate-900 mb-4">Page not found</h4>
-        <div className="dark:text-white text-base font-normal mb-10">
-          The page you are looking for might have been removed had its name
-          changed or is temporarily unavailable.
+    <div className="portfolio-body">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
+        <div className="text-center">
+          <h1 className="text-6xl font-bold text-gray-800 mb-4">404</h1>
+          <h2 className="text-2xl font-semibold text-gray-700 mb-6">Page Not Found</h2>
+          <p className="text-gray-600 mb-8">The page you're looking for doesn't exist.</p>
+          <button
+            onClick={handleGoHome}
+            className="px-6 py-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors font-medium"
+          >
+            Go to Portfolio
+          </button>
         </div>
-      </div>
-      <div className="max-w-[300px] mx-auto w-full">
-        <Link
-          href="/"
-          className="btn bg-white hover:bg-opacity-75 transition-all duration-150 block text-center"
-        >
-          Go to homepage
-        </Link>
       </div>
     </div>
   );
-};
-
-export default PageNotFound;
+}
